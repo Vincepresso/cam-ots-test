@@ -1,0 +1,57 @@
+[gd_scene load_steps=8 format=3 uid="uid://en6kxc4bhh7e"]
+
+[ext_resource type="Script" uid="uid://b6fv2cys3330p" path="res://player.gd" id="1_4flbx"]
+[ext_resource type="Script" uid="uid://c1146tfkg12si" path="res://camera_pivot.gd" id="2_onrkg"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_sh265"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sh265"]
+albedo_color = Color(0.40532407, 0.5685029, 0.48659652, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_sh265"]
+size = Vector3(0.5, 0.1, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4flbx"]
+albedo_color = Color(0.94950277, 0.46680528, 0.5593343, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4flbx"]
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_4flbx")
+
+[node name="Visual" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_sh265")
+surface_material_override/0 = SubResource("StandardMaterial3D_sh265")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, -0.3)
+mesh = SubResource("BoxMesh_sh265")
+surface_material_override/0 = SubResource("StandardMaterial3D_4flbx")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_4flbx")
+
+[node name="CameraPivot" type="Node3D" parent="."]
+unique_name_in_owner = true
+top_level = true
+script = ExtResource("2_onrkg")
+
+[node name="RightShoulder" type="Node3D" parent="CameraPivot"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.366, 2.113005, 0)
+
+[node name="SpringArm3D" type="SpringArm3D" parent="CameraPivot/RightShoulder"]
+spring_length = 2.705
+
+[node name="Camera" type="Marker3D" parent="CameraPivot/RightShoulder/SpringArm3D"]
+
+[node name="LeftShoulder" type="Node3D" parent="CameraPivot"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.366, 2.113, 0)
+
+[node name="SpringArm3D" type="SpringArm3D" parent="CameraPivot/LeftShoulder"]
+spring_length = 2.705
+
+[node name="Camera" type="Marker3D" parent="CameraPivot/LeftShoulder/SpringArm3D"]

@@ -1,0 +1,142 @@
+[gd_scene load_steps=15 format=3 uid="uid://hpowi6c3n380"]
+
+[ext_resource type="Texture2D" uid="uid://bxqp4x7hjmxl6" path="res://addons/kenney_prototype_textures/dark/texture_04.png" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="2_0xm2m"]
+[ext_resource type="Texture2D" uid="uid://dj5i1vbvqq312" path="res://addons/kenney_prototype_textures/orange/texture_05.png" id="2_7mycd"]
+[ext_resource type="PackedScene" uid="uid://en6kxc4bhh7e" path="res://player.tscn" id="3_h2yge"]
+[ext_resource type="Script" uid="uid://csjccrhj5wnx7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="4_lquwl"]
+[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="5_7mycd"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_7mycd"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_272bh"]
+sky_material = SubResource("ProceduralSkyMaterial_7mycd")
+
+[sub_resource type="Environment" id="Environment_5vw27"]
+background_mode = 2
+sky = SubResource("Sky_272bh")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0xm2m"]
+albedo_texture = ExtResource("1_ig7tw")
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_272bh"]
+albedo_texture = ExtResource("2_7mycd")
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5vw27"]
+albedo_texture = ExtResource("2_7mycd")
+uv1_triplanar = true
+
+[sub_resource type="Resource" id="Resource_7mycd"]
+script = ExtResource("5_7mycd")
+
+[sub_resource type="Resource" id="Resource_272bh"]
+script = ExtResource("5_7mycd")
+
+[node name="Main" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_5vw27")
+
+[node name="Map" type="CSGCombiner3D" parent="."]
+use_collision = true
+collision_layer = 3
+
+[node name="Ground" type="CSGBox3D" parent="Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+size = Vector3(200, 1, 200)
+material = SubResource("StandardMaterial3D_0xm2m")
+metadata/_edit_lock_ = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0.5, -12)
+material = SubResource("StandardMaterial3D_272bh")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1, -18)
+size = Vector3(2, 2, 2)
+material = SubResource("StandardMaterial3D_5vw27")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.929, 1.5, -1.9200001)
+size = Vector3(3, 3, 3)
+material = SubResource("StandardMaterial3D_5vw27")
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Map"]
+transform = Transform3D(-0.9659258, 0, -0.25881898, 0, 1, 0, 0.25881898, 0, -0.9659258, 10.862503, 0.5, 13.31514)
+material = SubResource("StandardMaterial3D_272bh")
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="Map"]
+transform = Transform3D(-0.9659258, 0, -0.25881898, 0, 1, 0, 0.25881898, 0, -0.9659258, -1.1075447, 1, 22.734161)
+size = Vector3(2, 2, 2)
+material = SubResource("StandardMaterial3D_5vw27")
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="Map"]
+transform = Transform3D(-0.9659258, 0, -0.25881898, 0, 1, 0, 0.25881898, 0, -0.9659258, -15.825958, 1.5, 10.0307045)
+size = Vector3(3, 3, 3)
+material = SubResource("StandardMaterial3D_5vw27")
+
+[node name="Player" parent="." instance=ExtResource("3_h2yge")]
+min_pitch = -50.0
+
+[node name="Camera3D" type="Camera3D" parent="." groups=["main_camera"]]
+physics_interpolation_mode = 1
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.405, 2.75)
+
+[node name="PhantomCameraHost" type="Node" parent="Camera3D"]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("2_0xm2m")
+metadata/_custom_type_script = "uid://bd046eokvcnu2"
+
+[node name="OTSPcamRight" type="Node3D" parent="." node_paths=PackedStringArray("follow_target", "look_at_target") groups=["ots_pcam_right"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.366, 2.113005, 0)
+top_level = true
+script = ExtResource("4_lquwl")
+priority = 10
+follow_mode = 2
+follow_target = NodePath("../Player/CameraPivot/RightShoulder/SpringArm3D/Camera")
+look_at_mode = 1
+look_at_target = NodePath("../Player/CameraPivot/RightShoulder/SpringArm3D/Camera")
+tween_resource = SubResource("Resource_7mycd")
+follow_distance = 2.625
+spring_length = 2.625
+metadata/_custom_type_script = "uid://csjccrhj5wnx7"
+
+[node name="OTSPcamLeft" type="Node3D" parent="." node_paths=PackedStringArray("follow_target", "look_at_target") groups=["ots_pcam_left"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.366, 2.113, 0)
+top_level = true
+script = ExtResource("4_lquwl")
+priority = 10
+follow_mode = 2
+follow_target = NodePath("../Player/CameraPivot/LeftShoulder/SpringArm3D/Camera")
+look_at_mode = 1
+look_at_target = NodePath("../Player/CameraPivot/LeftShoulder/SpringArm3D/Camera")
+tween_resource = SubResource("Resource_7mycd")
+follow_distance = 2.625
+spring_length = 2.625
+metadata/_custom_type_script = "uid://csjccrhj5wnx7"
+
+[node name="TPSPcam" type="Node3D" parent="." node_paths=PackedStringArray("follow_target") groups=["tps_pcam"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.405, 2.75)
+script = ExtResource("4_lquwl")
+priority = 30
+follow_mode = 6
+follow_target = NodePath("../Player")
+tween_resource = SubResource("Resource_272bh")
+tween_on_load = false
+follow_offset = Vector3(0, 2.405, 0)
+follow_distance = 2.75
+spring_length = 2.75
+metadata/_custom_type_script = "uid://csjccrhj5wnx7"
+
+[editable path="Player"]
