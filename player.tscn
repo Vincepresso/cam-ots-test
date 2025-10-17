@@ -45,7 +45,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.366, 2.113005, 0)
 [node name="SpringArm3D" type="SpringArm3D" parent="CameraPivot/RightShoulder"]
 spring_length = 2.705
 
-[node name="Camera" type="Marker3D" parent="CameraPivot/RightShoulder/SpringArm3D"]
+[node name="CameraTarget" type="Marker3D" parent="CameraPivot/RightShoulder/SpringArm3D"]
 
 [node name="LeftShoulder" type="Node3D" parent="CameraPivot"]
 unique_name_in_owner = true
@@ -54,4 +54,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.366, 2.113, 0)
 [node name="SpringArm3D" type="SpringArm3D" parent="CameraPivot/LeftShoulder"]
 spring_length = 2.705
 
-[node name="Camera" type="Marker3D" parent="CameraPivot/LeftShoulder/SpringArm3D"]
+[node name="CameraTarget" type="Marker3D" parent="CameraPivot/LeftShoulder/SpringArm3D"]
