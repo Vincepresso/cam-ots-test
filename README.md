@@ -15,11 +15,13 @@ Unlock Cursor -> Tab \
 Quit -> Esc
 
 ## Solution
-Basically the idea is to create a camera pivot at the character’s feet. Then create left/right shoulder pivot as a child of the camera pivot. As a child of that. create spring arm and a camera target in the Player Scene. In the main scene, create PhantomCamera3D simple follow and mimic lookat pointing at the camera target
+Basically the idea is to create a camera pivot at the player’s feet. Then create left/right shoulder pivot as a child of the camera pivot. As a child of that. create spring arm and a camera target. These structure should be added in the player scene (local to player). In the main scene, create PhantomCamera3D simple follow and mimic lookat, with target = camera target previously created
 
-![alt text](resources/inspector.png)
+![Tree Inspector](resources/tree_inspector.png)
 
-![alt text](resources/scene_view.png)
+![Scene View](resources/scene_view.png)
+
+![PCAM Inspector](resources/pcam_inspector.png)
 
 On Mouse movement X, rotate CameraPivot on Y axis only (i.e: Yaw)
 On Mouse movement Y, rotate ShoulderPivot on X axis only (i.e: Pitch)
