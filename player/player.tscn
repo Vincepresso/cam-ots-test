@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://en6kxc4bhh7e"]
 
-[ext_resource type="Script" uid="uid://b6fv2cys3330p" path="res://player.gd" id="1_4flbx"]
-[ext_resource type="Script" uid="uid://c1146tfkg12si" path="res://camera_pivot.gd" id="2_onrkg"]
+[ext_resource type="Script" uid="uid://b6fv2cys3330p" path="res://player/player.gd" id="1_4flbx"]
+[ext_resource type="Script" uid="uid://c1146tfkg12si" path="res://player/camera_pivot.gd" id="2_onrkg"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_sh265"]
 
